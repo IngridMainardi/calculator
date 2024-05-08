@@ -2,6 +2,7 @@ class CalcController{
 
 constructor(){
 
+    this._operation = [];
     this.locale = "pt-Br"
     this._displayCalcEL = document.querySelector("#display");
     this._displayDateEl = document.querySelector("#date");
@@ -29,15 +30,63 @@ initialize(){
             })
     }
 
+    addOperation(value){
+        this._operation.push(value)
+    }
+
+    clearAll(){
+
+        this._operation = []
+    }
+    clearEntry(){
+
+        this._operation.pop()
+    }
+    setError(){
+
+        this.displayCalc = "Error"
+    }
+
+    execBtn(value){
+
+        switch (value){
+            
+            case "ac": this.clearAll
+                break;
+            case "ce": this.clearEntry
+                break;
+            case "soma":
+                break;
+            case "subtration":
+                break
+            case "multiplication":
+                break
+            case "division":
+                break
+            case "porcent":
+                break
+            case "equal":
+                break
+            default: this.setError
+                break
+        }
+    }
+
     initButtonEvents(){
         let buttons = document.querySelectorAll("#buttons > g, #parts > g")
             
             buttons.forEach((btn, index)=>{
 
-                this.addEventListenerAll(btn, 'click drag mouseover', e => {
+                this.addEventListenerAll(btn, 'click drag', e => {
                     
                     console.log(btn.className.baseVal.replace("btn-",""));
                 
+                })
+
+                this.addEventListenerAll(btn , "mouseover mouseup mpousedown", e =>{
+
+                    btn.style.cursor = "pointer"
+
                 })
             })
 
