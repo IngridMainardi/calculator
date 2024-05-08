@@ -5,7 +5,7 @@ constructor(){
     this.locale = "pt-Br"
     this._displayCalcEL = document.querySelector("#display");
     this._displayDateEl = document.querySelector("#date");
-    this._displayTimeEl  = document.querySelector("#hour");
+    this._displayTimeEl  = document.querySelector("#time");
     this._currentDate;
     this.initialize();
     this.setdispayDateTime()
