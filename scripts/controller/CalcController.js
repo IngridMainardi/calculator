@@ -24,11 +24,17 @@ class CalcController{
                     
                     this.addEventListenerAll(btn, 'click drag', e =>{
                         
-                        console.log(btn.className.baseVal.replace("btn-", ""))
-    
-                        
+                        let textBtn = btn.className.baseVal.replace("btn-", "")
+
+                                
+                            this.execBtn(textBtn)
                     })
-                    btn.style.cursor = "pointer"
+
+                    this.addEventListenerAll(btn, 'mouseover mouseup, mousedown', e => {
+
+                        btn.style.cursor = "pointer"
+                    })
+
                     
                 })
                 
@@ -94,39 +100,64 @@ class CalcController{
         }
     
     
-    // addOperation(value){
-    //     this._operation.push(value);
+    addOperation(value){
+        this._operation.push(value);
 
-    //     console.log(this._operation);
-    // }
+    }
+
+
      // métodos dos botões
-     getLastOperation(){
+
+     
+        getLastOperation(){
     
-        return this._operation[this._operation.length - 1];
+            return this._operation[this._operation.length - 1];
 
         }
+
+        isOperator(value){
+
+            return (['+', '-', '*', '/', '%'].indexOf(value) > -1) 
+
+        }
+
+        setLastOperation(value){
+
+            this._operation[this._operation.length - 1] = value
+        }
+
 
     addOperation(value){
 
-        if (isNaN(this.getLastOperation())){
-                    // verificar o que é o ultimo digito, se é operador ou número
+        if(isNaN(this.getLastOperation())){
+            
+            //se não for número
+            if(this.isOperator(value)) {
+                //trocar o operador
+                
+                this.setLastOperation(value)
 
-            if (this.isOperator(value)){
-                    // trocar o operador
-        }
-        } else { 
-                    // se o último dígito for número
+            } else if(isNaN(value)){
+                    
+                console.log(value)
 
+            }else{
+             
+                this._operation.push(value)
 
+            }
+                
+        } else {
+            //se for número
             let newValue = this.getLastOperation().toString() + value.toString();
-            this._operation.push(newValue);
-                    // transforma tudo em string e junta 
+                this.setLastOperation(parseInt(newValue));
+            //transforma tudo em string e junta
         }
-      
 
+        console.log(this._operation)
 
         }
-   
+           
     
         clearAll(){
     
@@ -152,19 +183,19 @@ class CalcController{
                     break;
                 case "ce": this.clearEntry()
                     break;
-                case "soma":
+                case "sum": this.addOperation('+')
                     break;
-                case "subtration":
+                case "subtration":this.addOperation('-')
                     break;
-                case "multiplication":
+                case "multiplication":this.addOperation('*')
                     break;
-                case "division":
+                case "division":this.addOperation('/')
                     break;
-                case "porcent":
+                case "porcent":this.addOperation('%')
                     break;
                 case "equal":
                     break;
-                case "point":
+                case "point": this.addOperation('.')
                     break;
                 case "0": 
                 case "1":
