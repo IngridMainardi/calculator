@@ -19,6 +19,17 @@ class CalcController{
         this.initKeyboard() 
         }   
     
+
+        copyToClipboard() {
+            let input = document.createElement('input');
+            input.value = this.displayCalc;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand("Copy");
+
+        }
+
+
     // config do display
     
         initButtonEvents(){
@@ -389,6 +400,10 @@ class CalcController{
     
                 default: this.setError();
                     break;
+
+                    case 'c':
+                        if (e.ctrlKey) this.copyToClipboard();
+                        break;
             }
         }
     
